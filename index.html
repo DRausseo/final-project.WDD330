@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TaskFlow</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <h1>Welcome to TaskFlow</h1>
+    <div id="quote"></div>
+    <div id="activity"></div>
+
+    <section id="task-section">
+  <h2>Add a New Task</h2>
+  <input type="text" id="main-task" placeholder="Big task name" />
+  <button id="add-task">Add Task</button>
+
+  <ul id="task-list"></ul>
+</section>
+
+<section id="focus-section">
+  <h2>Focus Mode</h2>
+  <button id="start-focus">Start 25-Min Focus</button>
+  <p id="timer-display">25:00</p>
+</section>
+
+<section id="settings-section">
+  <h2>Personalize Your Experience</h2>
+  <label>
+    <input type="checkbox" id="toggle-dark" />
+    Dark Mode
+  </label>
+
+  <label for="theme-color">Choose a color:</label>
+  <select id="theme-color">
+    <option value="#7BAFD4">Soft Blue</option>
+    <option value="#A5D6A7">Mint Green</option>
+    <option value="#F48FB1">Pink</option>
+  </select>
+</section>
+
+
+  </main>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
