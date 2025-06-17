@@ -1,15 +1,22 @@
 import { getQuote, getActivity } from "./apiHandler.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
-  const quote = await getQuote();
-  const activity = await getActivity();
-
-  document.getElementById("quote").textContent = quote;
-  document.getElementById("activity").textContent = activity;
-});
 const taskList = document.getElementById("task-list");
 const addTaskButton = document.getElementById("add-task");
 const mainTaskInput = document.getElementById("main-task");
+
+// Load tasks from localStorage
+function loadTasks() {
+  const saved = localStorage.getItem("tasks");
+  if (saved) {
+    taskList.innerHTML = saved;
+  }
+}
+
+// Save tasks to localStorage
+function saveTasks() {
+  localStorage.setItem("tasks", taskList.innerHTML);
+}
+
 // Theme color switch
 const colorPicker = document.getElementById("theme-color");
 colorPicker.addEventListener("change", (e) => {
@@ -37,6 +44,7 @@ if (savedDark) {
   document.body.classList.add("dark-mode");
 }
 
+// Add task with micro-actions
 addTaskButton.addEventListener("click", () => {
   const taskName = mainTaskInput.value.trim();
   if (taskName === "") return;
@@ -52,9 +60,15 @@ addTaskButton.addEventListener("click", () => {
   `;
   taskList.appendChild(li);
   mainTaskInput.value = "";
+  saveTasks();
 });
+
+// Save when micro-tasks are checked/unchecked
+taskList.addEventListener("change", saveTasks);
+
+// Timer (Focus Mode)
 let focusTimer;
-let timeLeft = 25 * 60; // 25 minutes
+let timeLeft = 25 * 60;
 
 function updateTimerDisplay() {
   const minutes = String(Math.floor(timeLeft / 60)).padStart(2, "0");
@@ -79,4 +93,16 @@ document.getElementById("start-focus").addEventListener("click", () => {
       updateTimerDisplay();
     }
   }, 1000);
+});
+
+// Initial load
+document.addEventListener("DOMContentLoaded", async () => {
+  const quote = await getQuote();
+  const activity = await getActivity();
+
+  document.getElementById("quote").textContent = quote;
+  document.getElementById("activity").textContent = activity;
+
+  loadTasks();
+  updateTimerDisplay();
 });
